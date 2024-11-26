@@ -2,6 +2,7 @@
 #define ARBOL_H
 #include "NodoArbol.h"
 #include "ListaProcesos.h"
+
 class Arbol
 {
 private:
@@ -23,7 +24,7 @@ public:
 
     void mostrarPrioridadDada(int p);
 
-
+    void mostrarPrioridadesEjecutadas();
 
     //void mayorNumeroprocesos();
     //void menorNumeroprocesos();

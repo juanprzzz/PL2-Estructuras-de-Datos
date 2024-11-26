@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Arbol:: Arbol()
+Arbol::Arbol()
 {
     int p = 4;
     ListaProcesos l;
@@ -80,7 +80,7 @@ void Arbol::insertarProceso(Proceso p)
         { // si la prioridad de la raiz actual es la misma que la del proceso, añadir en lista
             raiz->listaProcesos.añadirPorDerecha(p);
         }
-        else if (hijoIzquierdo != NULL && p.prioridad <= raiz->prioridad) 
+        else if (hijoIzquierdo != NULL && p.prioridad <= raiz->prioridad)
         {
             hijoIzquierdo->insertarProceso(p);
         }
@@ -114,30 +114,34 @@ bool Arbol::estáPrioridad(int prioridad)
         return false;
     }
 }
-void Arbol::mostrarPrioridadDada(int p){
-    if(estáPrioridad(p)){
-        if(raiz->prioridad == p){
-            cout<<"Los procesos con prioridad "<<p<<" son: "<<endl;
-            raiz->listaProcesos.mostrarListaProcesos();   
+void Arbol::mostrarPrioridadDada(int p)
+{
+    if (estáPrioridad(p))
+    {
+        if (raiz->prioridad == p)
+        {
+            cout << "Los procesos con prioridad " << p << " son: " << endl;
+            raiz->listaProcesos.mostrarListaProcesos();
         }
-        else{
-            if(hijoIzquierdo != NULL && p <= raiz->prioridad){
+        else
+        {
+            if (hijoIzquierdo != NULL && p <= raiz->prioridad)
+            {
                 hijoIzquierdo->mostrarPrioridadDada(p);
             }
-            else if(hijoDerecho != NULL && p > raiz->prioridad){
+            else if (hijoDerecho != NULL && p > raiz->prioridad)
+            {
                 hijoDerecho->mostrarPrioridadDada(p);
             }
         }
     }
-    else{
-        cout<<"La prioridad no existe en el árbol"<<endl;
+    else
+    {
+        cout << "La prioridad no existe en el árbol" << endl;
     }
 }
-
-
-
-void Arbol::mostrarArbol() //falta mostrar tiempo vivo en el SO
-{ // PRIMERO MUESTRA TODO EL LADO IZQUIERDO POSIBLE, LUEGO LADO DERECHO
+void Arbol::mostrarArbol() // falta mostrar tiempo vivo en el SO
+{                          // PRIMERO MUESTRA TODO EL LADO IZQUIERDO POSIBLE, LUEGO LADO DERECHO
     if (hijoIzquierdo == NULL && hijoDerecho == NULL)
     {
         cout << "Nodo prioridad " << raiz->prioridad << endl;
@@ -161,4 +165,31 @@ void Arbol::mostrarArbol() //falta mostrar tiempo vivo en el SO
         }
     }
 }
+/// FUNCIONA PERO REVISAR FUNCIONAMIENTO PARA COMPRENDERLO
+void Arbol::mostrarPrioridadesEjecutadas() //// REVISAR IMPRIME DOS VECES EL 4
+{
+    if (hijoIzquierdo == NULL && hijoDerecho == NULL) // Si los dos son nulos es el valor más pequeño posible
+    {
+        cout << "La prioridad " << raiz->prioridad << " ha ejecutado los siguientes procesos: " << endl;
+        raiz->listaProcesos.mostrarListaProcesos();
+    }
+    else
+    {
+        if (hijoIzquierdo != NULL) //Si tiene hijo izquierdo hay otro valor más pequeño
+        {
+            hijoIzquierdo->mostrarPrioridadesEjecutadas();
+            cout << "La prioridad " << raiz->prioridad << " ha ejecutado los siguientes procesos: " << endl; //Imprimirá el segundo valor más pequeño (ya que si no puedo ir más a la izquieda)
+            raiz->listaProcesos.mostrarListaProcesos();
+        }
+        if (hijoDerecho != NULL)
+        {
+            if(raiz->prioridad != 4){ //De esta forma no muestra dos veces el 4 (ya que sube dos veces)
+                cout << "La prioridad " << raiz->prioridad << " ha ejecutado los siguientes procesos: " << endl; //Antes de meternos hay que imprimir el valor ya que es el más pequeño de los que quedan
+            raiz->listaProcesos.mostrarListaProcesos();
+            }
+            
 
+            hijoDerecho->mostrarPrioridadesEjecutadas();
+        }
+    }
+}

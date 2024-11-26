@@ -18,6 +18,7 @@ class ListaProcesos{
         void eliminarFin();
         ListaProcesos copiarLista();
         void mostrarListaProcesos();
+        int len();
 
 };
 

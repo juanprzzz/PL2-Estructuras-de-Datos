@@ -114,3 +114,12 @@ void ListaProcesos::mostrarListaProcesos(){
         
     }
 }
+int ListaProcesos::len(){
+    if(esVacia()){
+        return 0;
+    }
+    else{
+        eliminarInicio();
+        return  1 + len();
+    }
+}

@@ -5,6 +5,8 @@ class ListaProcesos{
     private:
         NodoListaProcesos *primero;
         NodoListaProcesos *ultimo;
+
+        friend class Arbol;
     public:
         ListaProcesos();
         ListaProcesos(Proceso p);
@@ -19,6 +21,8 @@ class ListaProcesos{
         ListaProcesos copiarLista();
         void mostrarListaProcesos();
         int len();
+
+        int tiempoMedioEjecucionLista();
 
 };
 

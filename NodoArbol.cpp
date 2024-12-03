@@ -3,13 +3,16 @@
 
 NodoArbol::NodoArbol(){
     prioridad = 4;
-    listaProcesos;
+    //listaProcesos;
 }
 NodoArbol::NodoArbol(int p){
     prioridad = p;
-    listaProcesos;
+    //listaProcesos;
 }
 NodoArbol::NodoArbol(int p, ListaProcesos l){
     prioridad = p;
     listaProcesos = l;
 }
+//NodoArbol::~NodoArbol(){
+
+//}

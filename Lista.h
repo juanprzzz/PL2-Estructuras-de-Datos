@@ -8,7 +8,6 @@ class Lista{
         NodoLista* primero; //o NodoLista*
         NodoLista* ultimo;
         int ctdNucleos;
-        int IDs;
 
         friend class SistemaLista; 
     public:
@@ -36,4 +35,4 @@ class Lista{
 
 };
 
-#endif 
+#endif

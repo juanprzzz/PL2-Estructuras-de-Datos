@@ -7,6 +7,7 @@ class NodoListaProcesos{
         NodoListaProcesos *siguiente;
 
     friend class ListaProcesos;
+    friend class Arbol;
 
     public:
         NodoListaProcesos();

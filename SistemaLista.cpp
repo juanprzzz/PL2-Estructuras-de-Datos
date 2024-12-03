@@ -8,7 +8,7 @@ SistemaLista::SistemaLista()
 {
     Pila pilaProcesos;
     Lista lista;
-    Lista contadorProcesosNucleos;
+    Arbol abb;
 }
 
 SistemaLista::~SistemaLista()
@@ -74,8 +74,7 @@ void SistemaLista::apilarSistema(Proceso p)
 void SistemaLista::pasarTiempo(int N)
 {
     for (int i = 0; i < N; i++)
-    {      
-        cout<<"fdsfds"<<endl; 
+    {       
         procesoComienzo(); // Se comprueba si hay algún proceso que inicie en este minuto. Si lo hay, se añade a la cola
         Lista aux = lista.copiarLista();
         lista.~Lista();
@@ -86,7 +85,10 @@ void SistemaLista::pasarTiempo(int N)
             {
                 cout << "\nHa finalizado el siguiente proceso al final del minuto " << tiempoTranscurrido - 1 << " del sistema: " << aux.primero->nucleo.mostrarProcesoEjecucion() << endl;
                 tiempoFinalizacion += tiempoTranscurrido; // como ha acabado un proceso, se suma el tiempo actual al tiempo de finalización
-                aux.primero->nucleo.terminarProceso();    // Además, como ahora el núcleo está vacío, se sustituye el proceso finalizado por uno vacío con todos los valores a -1
+                aux.primero->nucleo.procesoEjecucion.tiempoFin=tiempoTranscurrido;
+                Proceso pact=aux.primero->nucleo.terminarProceso();    // Además, como ahora el núcleo está vacío, se sustituye el proceso finalizado por uno vacío con todos los valores a -1
+                //pact.tiempoFin=tiempoTranscurrido;
+                abb.insertarProceso(pact); //se podria hacer directamente abb.insertarProceso(aux.primero->nucleo.procesoEjecucion
             }else{
                 aux.primero->nucleo.procesoEjecucion.tiempoVida--; 
             }
@@ -102,18 +104,15 @@ void SistemaLista::pasarTiempo(int N)
             lista.añadirDerecha(aux.inicio());//meto cada elemento de aux,lista pero modificado, de vuelta en lista
             aux.eliminarInicio();
         }
-
-        
         lista.eliminarNucleosVacios(lista.comprobarEliminarNucleos()); //compruebo si se pueden eliminar nucleos vacios 
-        //insertarNucleosVacios(laux);
+        
         cout << "\nESTADO DE LOS NÚCLEOS. MINUTO: " << tiempoTranscurrido << endl;
         lista.mostrarLista();
 
         tiempoTranscurrido++;
-        cout<<tiempoTranscurrido<<endl;
     }
 }
-//g++ Cola.cpp Lista.cpp main.cpp NodoCola.cpp NodoLista.cpp Nucleo.cpp Pila.cpp NodoPila.cpp Proceso.cpp Sistema.cpp SistemaLista.cpp
+
 /*
  * Mira la pila de procesos, si nos encontramos en el minuto en el que se inicia un (o varios) nuevo proceso, lo mete en una cola auxiliar ordenado por prioridad (para que un proceso menos prioritario no se ejecute antes que otro)
  * Después, de la cola auxiliar mete cada proceso en la cola de un nucleo/se lo asigna si puede. Si es necesario, se crean más nucleos
@@ -125,7 +124,9 @@ void SistemaLista::procesoComienzo()
     Cola colaNuevos;
     while (tiempoTranscurrido == pilaProcesos.mostrar().inicioProceso)
     {
-        colaNuevos.encolarPrioridad(pilaProcesos.mostrar());
+        Proceso paux=pilaProcesos.mostrar();
+        paux.tiempoLlegada=tiempoTranscurrido;
+        colaNuevos.encolarPrioridad(paux);
         pilaProcesos.desapilar();
         tiempoLlegada += tiempoTranscurrido;
     }
@@ -146,8 +147,10 @@ void SistemaLista::procesoComienzo()
             if (aux->nucleo.procesoEjecucion.tiempoVida == 0)
             {
                 cout << "\nHa finalizado el siguiente proceso al final del minuto " << tiempoTranscurrido - 1 << " del sistema: " << aux->nucleo.mostrarProcesoEjecucion() << endl;
+                aux->nucleo.procesoEjecucion.tiempoFin=tiempoTranscurrido;
                 tiempoFinalizacion += tiempoTranscurrido; // como ha acabado un proceso, se suma el tiempo actual al tiempo de finalización
-                aux->nucleo.terminarProceso();    // Además, como ahora el núcleo está vacío, se sustituye el proceso finalizado por uno vacío con todos los valores a -1
+                Proceso pact=aux->nucleo.terminarProceso();    // Además, como ahora el núcleo está vacío, se sustituye el proceso finalizado por uno vacío con todos los valores a -1
+                abb.insertarProceso(pact); 
             }
 
             if (!aux->nucleo.colaEspera.es_vacia() && aux->nucleo.procesoEjecucion.PID == -1)
@@ -227,7 +230,6 @@ void SistemaLista::acabarProcesos()
     cout << "La suma de los tiempos de llegada de todos los procesos es: " << tiempoLlegada << endl;
     cout << "La suma de los tiempos de finalización de todos los procesos es: " << tiempoFinalizacion << endl;
     cout << "\n El tiempo medio de estancia es: " << tiempoMedio << endl;
-   // mostrarContador();
 }
 bool SistemaLista::nucleosVacios()
 {
@@ -249,20 +251,4 @@ bool SistemaLista::nucleosVacios()
         todosVacios = true;
     }
     return todosVacios;
-}
-
-void SistemaLista::insertarNucleosVacios(Lista l){
-    while(!l.esVacia()){
-        contadorProcesosNucleos.añadirDerecha(l.inicio());
-        l.eliminarInicio();
-    }
-}
-
-void SistemaLista::mostrarContador(){
-    //contadorProcesosNucleos.mostrarLista();
-    Lista l= contadorProcesosNucleos.copiarLista();
-    while(!l.esVacia()){
-        cout<<"id: "<<l.inicio().ID<<" ctd: "<<l.inicio().contadorProcesos<<endl;
-        l.eliminarInicio();
-    }
 }

@@ -30,14 +30,22 @@ prueba.insertarProceso(p5);
 prueba.insertarProceso(p8);
 prueba.insertarProceso(p9);
 prueba.insertarProceso(p3);
-prueba.insertarProceso(p3);
 prueba.insertarProceso(p7);
 prueba.insertarProceso(p10);
 prueba.insertarProceso(p1);
+prueba.insertarProceso(p3);
+prueba.insertarProceso(p6);
+prueba.insertarProceso(p6);
 prueba.insertarProceso(p6);
 
+ 
+
+
 //prueba.mostrarArbol();
-prueba.mostrarPrioridadesEjecutadas();
+
+//prueba.mostrarPrioridadesEjecutadas();
+prueba.mayorNumeroProcesos();
+prueba.menorNumeroProcesos();
 
 
 

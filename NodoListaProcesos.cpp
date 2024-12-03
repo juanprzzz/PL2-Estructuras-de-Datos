@@ -1,7 +1,7 @@
 #include "NodoListaProcesos.h"
 
 NodoListaProcesos::NodoListaProcesos(){
-    proceso;
+    //proceso;
     siguiente = NULL;
 }
 

@@ -31,7 +31,7 @@ class Nucleo
         void mostrarNucleo();
         string mostrarProcesoEjecucion();
         void ejecutarProceso(Proceso proceso);
-        void terminarProceso();
+        Proceso terminarProceso();
         void lenCola(); 
 
         Proceso PrimeroCola(); //getter delprimer elemento de la cola de espera

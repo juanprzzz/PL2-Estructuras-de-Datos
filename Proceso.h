@@ -13,6 +13,20 @@ class Proceso{
         int prioridad;
         int nucleo=0;
 
+
+        //tiempo de estancia
+        int tiempoLlegada=-1;
+        int tiempoFin=-1;
+        int tiempoMedio=-1;
+
+
+ /*
+        13.  Calcular  y  mostrar  el  tiempo  promedio  de  ejecución  de  los  procesos  con  una 
+prioridad específica: Calcula el tiempo medio que los procesos de un nivel de prioridad 
+dado han estado en ejecución.
+        */
+
+
         friend class NodoPila;
         friend class Pila;
         friend class Sistema;
@@ -29,6 +43,7 @@ class Proceso{
         Proceso(int PID,int inicioProceso, int tiempoVida, int prioridad, int ppid); 
         ~Proceso();
         string toString(); 
+        int calcularTiempoMedio();
 
 };
 

@@ -57,9 +57,11 @@ void Nucleo::ejecutarProceso(Proceso p){
    procesoEjecucion=p;
 }
 
-void Nucleo::terminarProceso(){
+Proceso Nucleo::terminarProceso(){
+   Proceso paux = procesoEjecucion; /////////////////
    procesoEjecucion=Proceso();
    contadorProcesos ++;
+   return paux;
 }
 
 void Nucleo::lenCola(){

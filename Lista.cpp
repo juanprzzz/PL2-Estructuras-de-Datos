@@ -1,7 +1,6 @@
 #include "NodoLista.h"
 #include "Lista.h"
 #include "Nucleo.h"
-#include "SistemaLista.h"
 #include <iostream>
 using namespace std;
 
@@ -10,7 +9,6 @@ Lista::Lista()
     primero = NULL;
     ultimo = NULL;
     ctdNucleos = 0;
-    IDs = 0;
 }
 
 Lista::Lista(Nucleo n)
@@ -18,7 +16,6 @@ Lista::Lista(Nucleo n)
     primero = new NodoLista(n);
     ultimo = primero;
     ctdNucleos = 1;
-    IDs = 1;
 }
 
 Lista::~Lista()
@@ -31,7 +28,6 @@ Lista::~Lista()
 
 void Lista::añadirIzquierda(Nucleo nucleo)
 {
-    IDs++;
     ctdNucleos++;
     NodoLista *nuevo_nodo = new NodoLista(nucleo);
     if (esVacia())
@@ -48,7 +44,6 @@ void Lista::añadirIzquierda(Nucleo nucleo)
 
 void Lista::añadirDerecha(Nucleo nucleo)
 {
-    IDs ++;
     ctdNucleos++;
     NodoLista *nuevo_nodo = new NodoLista(nucleo);
     if (esVacia())
@@ -167,7 +162,6 @@ Lista Lista::copiarLista()
         eliminarInicio();
     }
     ctdNucleos = 0;
-    IDs = 0;
     while (!listaAux.esVacia())
     {
         añadirDerecha(listaAux.inicio());
@@ -367,7 +361,7 @@ void Lista::añadirNuevoNucleo()
 {
     if (comprobarAñadirNuevosNucleos())
     {
-        añadirDerecha(Nucleo(IDs + 1));
+        añadirDerecha(Nucleo(ctdNucleos + 1));
     }
 }
 
@@ -388,29 +382,22 @@ int Lista::comprobarEliminarNucleos()
     {
         nucleosVacios--;
     }
-    cout<<"aaaa"<<endl;
     return nucleosVacios;
 }
 void Lista::eliminarNucleosVacios(int nucleosVacios)
 {
-    cout<<"bbbbbb"<<endl;
     Lista listaNoEliminados;
     int nucleosEliminados = 0;
-    //Lista N = Lista();
     while (nucleosEliminados != nucleosVacios) // Elimino tantos núcleos como se indiquen (no sirve con for, eliminaría menos núcleos, pueden pasar 20 núcleos hasta poder eliminar 3 porque el resto están ocupados)
     {
         if (!(inicio().colaEspera.es_vacia() && inicio().procesoEjecucion.nucleo == -1)) // Si la cola de espera no está vacía, y hay un proceso ejecución, no puedo eliminarlo
         {
-            cout<<"fdfs"<<endl;
             listaNoEliminados.añadirDerecha(inicio());
         }
         else
         {
-            cout<<"La cuenta de procesos del núcleo "<<inicio().ID <<" es: "<<inicio().contadorProcesos<<endl;
-         nucleosEliminados++;
-         //N.añadirDerecha(inicio());
+            nucleosEliminados++;
         }
-        
         eliminarInicio();
     }
     while (!listaNoEliminados.esVacia()) //Vuelco los núcleos ocupados en la lista principal
@@ -418,5 +405,4 @@ void Lista::eliminarNucleosVacios(int nucleosVacios)
         añadirDerecha(listaNoEliminados.inicio());
         listaNoEliminados.eliminarInicio();
     }
-    //return N;
 }

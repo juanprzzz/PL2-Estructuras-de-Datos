@@ -4,27 +4,25 @@
 #include "NodoLista.h"
 #include "Lista.h"
 #include "Nucleo.h"
+#include "Arbol.h"
 
 class SistemaLista{
     private:
         Pila pilaProcesos;
         Lista lista;
         int tiempoTranscurrido = 0;
-        Lista contadorProcesosNucleos;
+
+        Arbol abb;
 
 
         //variables para calcular tiempo medio de proceso
         int tiempoLlegada=0;
         int tiempoFinalizacion=0;
         int ctdProcesos=0;
-        friend class Lista;
     public:
-        
         SistemaLista();
         ~SistemaLista();
         
-        void mostrarContador();
-        void insertarNucleosVacios(Lista l);
         void mostrarProcesosNucleo();
         void pasarTiempo(int N);
         bool asignarSiguienteProcesoDesdeCola(int nucleoLibre);

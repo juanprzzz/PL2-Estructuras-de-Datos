@@ -10,9 +10,13 @@ private:
     Arbol *hijoIzquierdo;
     Arbol *hijoDerecho;
 
+   friend class SistemaLista; 
+
 public:
     Arbol();
     Arbol(int prioridad, ListaProcesos l);
+    ~Arbol();
+    //void destruirArbol(Arbol *a);
     NodoArbol* verRaiz();
     Arbol* hijoIzqdo();
     Arbol* hijoDcho();
@@ -26,10 +30,15 @@ public:
 
     void mostrarPrioridadesEjecutadas();
 
-    //void mayorNumeroprocesos();
+    void mayorNumeroProcesosAux(Arbol *&mayorProcesos);
+    void mayorNumeroProcesos();
+
+    void menorNumeroProcesosAux(Arbol *&menorProcesos);
+    void menorNumeroProcesos();
+
     //void menorNumeroprocesos();
     //void mostrarPreorden();
-    //void tiempoMedioEjecucionNivel(int p);
+    int tiempoMedioEjecucionNivel(int p);
 
 };
 #endif

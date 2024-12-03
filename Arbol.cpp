@@ -165,7 +165,7 @@ void Arbol::mostrarArbol() // falta mostrar tiempo vivo en el SO
         }
     }
 }
-/// FUNCIONA PERO REVISAR FUNCIONAMIENTO PARA COMPRENDERLO
+
 void Arbol::mostrarPrioridadesEjecutadas() //// REVISAR IMPRIME DOS VECES EL 4
 {
     if (hijoIzquierdo == NULL && hijoDerecho == NULL) // Si los dos son nulos es el valor más pequeño posible
@@ -175,21 +175,186 @@ void Arbol::mostrarPrioridadesEjecutadas() //// REVISAR IMPRIME DOS VECES EL 4
     }
     else
     {
-        if (hijoIzquierdo != NULL) //Si tiene hijo izquierdo hay otro valor más pequeño
+        if (hijoIzquierdo != NULL) // Si tiene hijo izquierdo hay otro valor más pequeño
         {
             hijoIzquierdo->mostrarPrioridadesEjecutadas();
-            cout << "La prioridad " << raiz->prioridad << " ha ejecutado los siguientes procesos: " << endl; //Imprimirá el segundo valor más pequeño (ya que si no puedo ir más a la izquieda)
+            cout << "La prioridad " << raiz->prioridad << " ha ejecutado los siguientes procesos: " << endl; // Imprimirá el segundo valor más pequeño (ya que si no puedo ir más a la izquieda)
             raiz->listaProcesos.mostrarListaProcesos();
         }
         if (hijoDerecho != NULL)
         {
-            if(raiz->prioridad != 4){ //De esta forma no muestra dos veces el 4 (ya que sube dos veces)
-                cout << "La prioridad " << raiz->prioridad << " ha ejecutado los siguientes procesos: " << endl; //Antes de meternos hay que imprimir el valor ya que es el más pequeño de los que quedan
-            raiz->listaProcesos.mostrarListaProcesos();
+            if (raiz->prioridad != 4)
+            {                                                                                                    // De esta forma no muestra dos veces el 4 (ya que sube dos veces)
+                cout << "La prioridad " << raiz->prioridad << " ha ejecutado los siguientes procesos: " << endl; // Antes de meternos hay que imprimir el valor ya que es el más pequeño de los que quedan
+                raiz->listaProcesos.mostrarListaProcesos();
             }
-            
 
             hijoDerecho->mostrarPrioridadesEjecutadas();
         }
+    }
+}
+void Arbol::mayorNumeroProcesosAux(Arbol *&mayorProcesos) // Para que se pase por referencia, si no, se pasa por valor
+{
+    if (mayorProcesos->raiz->listaProcesos.len() == raiz->listaProcesos.len() && raiz->prioridad != 4) // Si tienen la misma cantidad de procesos hay que mostrarlos (inicialmente el 4 tendrá los mismos procesos que mayorProcesos, y como ya está en el arbol, se omite)
+    {
+        ListaProcesos copiaProcesos = raiz->listaProcesos.copiarLista(); //Hay que hacer copia para no modificar raiz->listaProcesos
+        while (!copiaProcesos.esVacia())
+        {
+            mayorProcesos->insertarProceso(copiaProcesos.inicio());//Va insertando los procesos en las prioridades correspondientes
+            copiaProcesos.eliminarInicio();
+        }
+    }
+    if (mayorProcesos->raiz->listaProcesos.len() < raiz->listaProcesos.len())//Si mayorProcesos tiene menos procesos que la prioridad raíz del árbol/subárbol entonces hay que rehacer el árbol
+    {
+        mayorProcesos->~Arbol();
+        ListaProcesos copiaProcesos = raiz->listaProcesos.copiarLista();
+        mayorProcesos->raiz->prioridad = raiz->prioridad; // Siempre tiene que haber una raíz por definición
+        while (!copiaProcesos.esVacia())
+        {
+            mayorProcesos->insertarProceso(copiaProcesos.inicio()); //Insertamos el proceso en el árbol en la prioridad correspondiente (se puede hacer con insertarProceso o con mayorProcesos->raíz->listaProcesos.añadirDerecha ya que solo vamos a añadir la raíz)
+            copiaProcesos.eliminarInicio();
+        }
+    }
+    if (hijoIzquierdo != nullptr)
+    {
+        hijoIzquierdo->mayorNumeroProcesosAux(mayorProcesos);
+    }
+
+    if (hijoDerecho != nullptr)
+    {
+        hijoDerecho->mayorNumeroProcesosAux(mayorProcesos);
+    }
+}
+
+void Arbol::mayorNumeroProcesos()
+{
+    //Arbol *mayorProcesos = new Arbol(raiz->prioridad, raiz->listaProcesos); No funcionaba usando esto
+    Arbol *mayorProcesos = new Arbol();
+    mayorProcesos->raiz->prioridad = raiz->prioridad;
+    ListaProcesos copiaListaRaiz = raiz->listaProcesos.copiarLista();
+    while (!copiaListaRaiz.esVacia())
+    {
+        mayorProcesos->raiz->listaProcesos.añadirPorDerecha(copiaListaRaiz.inicio()); //Insertamos en la raíz de mayorProcesos la lista de procesos de la prioridad raíz (será siempre 4)
+        copiaListaRaiz.eliminarInicio();
+    }
+    
+    mayorNumeroProcesosAux(mayorProcesos);
+    cout << "Estas son las prioridades con mayor número de procesos: " << endl;
+    mayorProcesos->mostrarArbol();
+}
+
+void Arbol::menorNumeroProcesosAux(Arbol *&menorProcesos)
+{ // Para que se pase por referencia, si no, se pasa por valor
+    if (menorProcesos->raiz->listaProcesos.len() == raiz->listaProcesos.len() && raiz->prioridad != 4) //Si tienen la misma cantidad de procesos y si la raíz es != 4 (porque prioridad 4 ya se encuentra en menorProcesos de la asignación en la función anterior)
+    {
+        ListaProcesos copiaProcesos = raiz->listaProcesos.copiarLista();//Hay que hacer copia para no modificar raiz->listaProcesos
+        while (!copiaProcesos.esVacia())
+        {
+            menorProcesos->insertarProceso(copiaProcesos.inicio()); //Va insertando los procesos en las prioridades correspondientes
+            copiaProcesos.eliminarInicio();
+        }
+    }
+    if (menorProcesos->raiz->listaProcesos.len() > raiz->listaProcesos.len()) //Si menorProcesos tiene más procesos que la prioridad raíz del árbol/subárbol entonces hay que rehacer el árbol
+    {
+        menorProcesos->~Arbol();
+        menorProcesos->raiz->prioridad = raiz->prioridad; // Por definición, el árbol siempre tiene que tener un nodo raiz con una prioridad bien definida
+        ListaProcesos copiaProcesos = raiz->listaProcesos.copiarLista();
+        while (!copiaProcesos.esVacia())
+        {
+
+            menorProcesos->insertarProceso(copiaProcesos.inicio());//Insertamos el proceso en el árbol en la prioridad correspondiente (se puede hacer con insertarProceso o con mayorProcesos->raíz->listaProcesos.añadirDerecha ya que solo vamos a añadir la raíz)
+
+            copiaProcesos.eliminarInicio();
+        }
+    }
+    if (hijoIzquierdo != nullptr)
+    {
+        hijoIzquierdo->menorNumeroProcesosAux(menorProcesos);
+    }
+    if (hijoDerecho != nullptr)
+    {
+        hijoDerecho->menorNumeroProcesosAux(menorProcesos);
+    }
+}
+void Arbol::menorNumeroProcesos()
+{
+    Arbol *menorProcesos = new Arbol();
+    menorProcesos->raiz->prioridad = raiz->prioridad;
+    ListaProcesos copiaListaRaiz = raiz->listaProcesos.copiarLista();
+    while (!copiaListaRaiz.esVacia())
+    {
+        menorProcesos->raiz->listaProcesos.añadirPorDerecha(copiaListaRaiz.inicio());
+        copiaListaRaiz.eliminarInicio();
+    }
+    menorNumeroProcesosAux(menorProcesos);
+    cout << "Estas son las prioridades con menos procesos: " << endl;
+    menorProcesos->mostrarArbol();
+}
+/*
+void Arbol::destruirArbol(Arbol *a)
+{
+  if (hijoDerecho != NULL)
+  {
+      destruirArbol(hijoDerecho);
+  }
+  if (hijoIzquierdo != NULL)
+  {
+      destruirArbol(hijoIzquierdo);
+  }
+  // destruirArbol(hijoDerecho);
+  // destruirArbol(hijoIzquierdo);
+  delete raiz;
+  if (raiz == nullptr)
+  {
+      cout << "PUNTERO NULO" << endl;
+  }
+}*/
+
+Arbol::~Arbol()
+{
+    if (hijoDerecho != NULL)
+    {
+        hijoDerecho->~Arbol();
+    }
+    if (hijoIzquierdo != NULL)
+    {
+        hijoIzquierdo->~Arbol();
+    }
+    // destruirArbol(hijoDerecho);
+    // destruirArbol(hijoIzquierdo);
+    raiz->prioridad = NULL;
+    raiz->listaProcesos.~ListaProcesos();
+
+    // raiz = nullptr;
+
+    hijoIzquierdo = nullptr;
+    hijoDerecho = nullptr;
+}
+
+int Arbol::tiempoMedioEjecucionNivel(int p)
+{
+    if (estáPrioridad(p))
+    {
+        if (raiz->prioridad == p)
+        {
+            int tmedio = raiz->listaProcesos.tiempoMedioEjecucionLista();
+            cout << "el tiempo medio de p es: " << tmedio << endl;
+            return tmedio;
+        }
+        else
+        {
+            if (hijoIzquierdo != NULL && p <= raiz->prioridad)
+            {
+                hijoIzquierdo->tiempoMedioEjecucionNivel(p);
+            }
+            else if (hijoDerecho != NULL && p > raiz->prioridad)
+            {
+                hijoDerecho->tiempoMedioEjecucionNivel(p);
+            }
+        }
+    }
+    else
+    {
+        return -1;
     }
 }

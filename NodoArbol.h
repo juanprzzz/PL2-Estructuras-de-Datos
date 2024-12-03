@@ -14,7 +14,7 @@ class NodoArbol{
         NodoArbol();
         NodoArbol(int p);
         NodoArbol(int p, ListaProcesos l);
-        ~NodoArbol();
+        //~NodoArbol();
 
 
 

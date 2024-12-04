@@ -232,12 +232,13 @@ void SistemaLista::acabarProcesos()
     cout << "\n El tiempo medio de estancia es: " << tiempoMedio << endl;
     cout << "\nEL ARBOL ES: " << endl;
     abb.mostrarArbol();
+    cout << "\n//////////////////////////////////////////////////////// " << endl;
     cout << "\nT.medio ejecucion:" << endl;
     //abb.tiempoMedioEjecucionNivel(5);
+    abb.mostrarTiemposMediosNiveles();
     abb.tiempoMedioEstancia();
-    cout << "\n//////////////////////////////////////////////////////// " << endl;
-    abb.mayorNumeroProcesos();
-    abb.menorNumeroProcesos();
+    //abb.mayorNumeroProcesos();
+   // abb.menorNumeroProcesos();
 }
 bool SistemaLista::nucleosVacios()
 {

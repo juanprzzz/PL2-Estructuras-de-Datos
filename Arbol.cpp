@@ -400,3 +400,19 @@ double Arbol::tiempoMedioEstanciaAux(double& sumaTiempos, int& cuentaProcesos) {
     return sumaTiempos;
 }
 
+void Arbol::mostrarTiemposMediosNiveles() 
+{         
+        cout << "NODO PRIORIDAD " << raiz->prioridad << endl;
+        cout << "tiempo de ejecución: "<<raiz->listaProcesos.tiempoMedioEjecucionLista()<< endl;
+        
+        if (hijoIzquierdo != NULL)
+        {
+            cout << "----------Nodos izquierdos----------" << endl;
+            hijoIzquierdo->mostrarTiemposMediosNiveles();
+        }
+        if (hijoDerecho != NULL)
+        {
+            cout << "----------Nodos derechos----------" << endl;
+            hijoDerecho->mostrarTiemposMediosNiveles();
+        }
+}

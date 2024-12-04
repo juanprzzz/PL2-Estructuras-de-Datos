@@ -38,6 +38,7 @@ public:
 
     //void menorNumeroprocesos();
     double tiempoMedioEjecucionNivel(int p);
+    void mostrarTiemposMediosNiveles();
     double tiempoMedioEstancia();
     double tiempoMedioEstanciaAux(double& sumaTiempos, int& cuentaNodos);
 

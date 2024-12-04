@@ -37,8 +37,9 @@ public:
     void menorNumeroProcesos();
 
     //void menorNumeroprocesos();
-    //void mostrarPreorden();
-    int tiempoMedioEjecucionNivel(int p);
+    double tiempoMedioEjecucionNivel(int p);
+    double tiempoMedioEstancia();
+    double tiempoMedioEstanciaAux(double& sumaTiempos, int& cuentaNodos);
 
 };
 #endif

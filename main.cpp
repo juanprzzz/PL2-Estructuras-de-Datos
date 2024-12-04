@@ -1,9 +1,9 @@
-//#include "Pila.h"
-//#include "Cola.h"
-//#include "Sistema.h"
+#include "Pila.h"
+#include "Cola.h"
+#include "Sistema.h"
 #include <iostream>
-//#include "Lista.h"
-//#include "SistemaLista.h"
+#include "Lista.h"
+#include "SistemaLista.h"
 #include "Proceso.h"
 #include "ListaProcesos.h"
 #include "Arbol.h"
@@ -15,12 +15,12 @@ int main(){
     Proceso p3= Proceso(3,3,6,9);
     Proceso p4= Proceso(4,0,7,5);
     Proceso p5 = Proceso(5,4,3,6); 
-    Proceso p6 = Proceso(6,7,8,3);
+    Proceso p6 = Proceso(6,7,8,4);
     Proceso p7 = Proceso(7,5,5,4);
     Proceso p8 = Proceso(8,3,2,0);
     Proceso p9 = Proceso(9,1,8,5);
     Proceso p10 = Proceso(10,2,4,4);
-
+/*
 Arbol prueba;
 
 //cout<<prueba.esVacio() <<endl;
@@ -37,6 +37,7 @@ prueba.insertarProceso(p3);
 prueba.insertarProceso(p6);
 prueba.insertarProceso(p6);
 prueba.insertarProceso(p6);
+prueba.insertarProceso(p6);
 
  
 
@@ -46,11 +47,11 @@ prueba.insertarProceso(p6);
 //prueba.mostrarPrioridadesEjecutadas();
 prueba.mayorNumeroProcesos();
 prueba.menorNumeroProcesos();
+*/
 
 
 
 
-/*
 SistemaLista sl;
 Sistema sistemaPrincipal;
 
@@ -252,7 +253,7 @@ else{
     cout << "Opción no válida "<<endl;
 }
 }
-*/
+
 
 return 0;
 }

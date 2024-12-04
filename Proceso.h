@@ -17,7 +17,7 @@ class Proceso{
         //tiempo de estancia
         int tiempoLlegada=-1;
         int tiempoFin=-1;
-        int tiempoMedio=-1;
+        int tiempoEstancia=-1;
 
 
  /*
@@ -43,7 +43,7 @@ dado han estado en ejecución.
         Proceso(int PID,int inicioProceso, int tiempoVida, int prioridad, int ppid); 
         ~Proceso();
         string toString(); 
-        int calcularTiempoMedio();
+        int calcularTiempoEstancia();
 
 };
 

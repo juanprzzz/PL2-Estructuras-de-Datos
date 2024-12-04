@@ -1,6 +1,7 @@
 #include "Proceso.h"
 #include <string>
 
+#include <iostream>
 using namespace std;
 
 
@@ -46,7 +47,8 @@ string Proceso::toString(){
     return procesoToString;
 }
 
-int Proceso::calcularTiempoMedio(){
-    tiempoMedio=tiempoFin-tiempoLlegada;
-    return tiempoMedio;
+int Proceso::calcularTiempoEstancia(){
+    tiempoEstancia=tiempoFin-tiempoLlegada;
+    cout<<"tfin: "<<tiempoFin<<", tllegada: "<< tiempoLlegada<<", testancia: "<< tiempoEstancia<<endl;
+    return tiempoEstancia;
 }

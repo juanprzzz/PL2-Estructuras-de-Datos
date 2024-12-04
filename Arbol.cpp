@@ -142,14 +142,14 @@ void Arbol::mostrarPrioridadDada(int p)
 }
 void Arbol::mostrarArbol() // falta mostrar tiempo vivo en el SO
 {                          // PRIMERO MUESTRA TODO EL LADO IZQUIERDO POSIBLE, LUEGO LADO DERECHO
-    if (hijoIzquierdo == NULL && hijoDerecho == NULL)
+    /*if (hijoIzquierdo == NULL && hijoDerecho == NULL)
     {
         cout << "Nodo prioridad " << raiz->prioridad << endl;
         cout << "Lista de procesos: " << endl;
         raiz->listaProcesos.mostrarListaProcesos();
     }
     else
-    {
+    {*/
         cout << "NODO PRIORIDAD " << raiz->prioridad << endl;
         cout << "Lista de procesos: " << endl;
         raiz->listaProcesos.mostrarListaProcesos();
@@ -163,11 +163,14 @@ void Arbol::mostrarArbol() // falta mostrar tiempo vivo en el SO
             cout << "----------Nodos derechos----------" << endl;
             hijoDerecho->mostrarArbol();
         }
-    }
+    //}
 }
 
 void Arbol::mostrarPrioridadesEjecutadas() //// REVISAR IMPRIME DOS VECES EL 4
 {
+    /*Mostrar  todos  los  niveles  de  prioridad  que  han  tenido  al  menos  un  proceso 
+ejecutado, en orden numérico: Lista todos los niveles de prioridad en los que ha habido 
+al menos un proceso atendido, ordenados de menor a mayor prioridad*/
     if (hijoIzquierdo == NULL && hijoDerecho == NULL) // Si los dos son nulos es el valor más pequeño posible
     {
         cout << "La prioridad " << raiz->prioridad << " ha ejecutado los siguientes procesos: " << endl;
@@ -235,6 +238,7 @@ void Arbol::mayorNumeroProcesos()
     while (!copiaListaRaiz.esVacia())
     {
         mayorProcesos->raiz->listaProcesos.añadirPorDerecha(copiaListaRaiz.inicio()); //Insertamos en la raíz de mayorProcesos la lista de procesos de la prioridad raíz (será siempre 4)
+        //cambiar añadirderecha por mayorprocesos->insertarProceso(copiaProcesos.inicio()) ////////////////////////////////////////////
         copiaListaRaiz.eliminarInicio();
     }
     
@@ -261,9 +265,8 @@ void Arbol::menorNumeroProcesosAux(Arbol *&menorProcesos)
         ListaProcesos copiaProcesos = raiz->listaProcesos.copiarLista();
         while (!copiaProcesos.esVacia())
         {
-
-            menorProcesos->insertarProceso(copiaProcesos.inicio());//Insertamos el proceso en el árbol en la prioridad correspondiente (se puede hacer con insertarProceso o con mayorProcesos->raíz->listaProcesos.añadirDerecha ya que solo vamos a añadir la raíz)
-
+            menorProcesos->insertarProceso(copiaProcesos.inicio());
+            //Insertamos el proceso en el árbol en la prioridad correspondiente (se puede hacer con insertarProceso o con mayorProcesos->raíz->listaProcesos.añadirDerecha ya que solo vamos a añadir la raíz)
             copiaProcesos.eliminarInicio();
         }
     }
@@ -280,13 +283,13 @@ void Arbol::menorNumeroProcesos()
 {
     Arbol *menorProcesos = new Arbol();
     menorProcesos->raiz->prioridad = raiz->prioridad;
-    ListaProcesos copiaListaRaiz = raiz->listaProcesos.copiarLista();
-    while (!copiaListaRaiz.esVacia())
+    ListaProcesos copiaListaRaiz = raiz->listaProcesos.copiarLista(); //copiar listaProcesos de la raiz para no modificar la original
+    while (!copiaListaRaiz.esVacia()) //metemos en el nuevo arbol auxiliar la raiz; Si solo hay un nodo en el arbol, será el mayor/menor por defecto 
     {
         menorProcesos->raiz->listaProcesos.añadirPorDerecha(copiaListaRaiz.inicio());
         copiaListaRaiz.eliminarInicio();
     }
-    menorNumeroProcesosAux(menorProcesos);
+    menorNumeroProcesosAux(menorProcesos); //modificamos el arbol si la raiz no fuera el de menor num. de procesos
     cout << "Estas son las prioridades con menos procesos: " << endl;
     menorProcesos->mostrarArbol();
 }
@@ -322,7 +325,7 @@ Arbol::~Arbol()
     }
     // destruirArbol(hijoDerecho);
     // destruirArbol(hijoIzquierdo);
-    raiz->prioridad = NULL;
+    raiz->prioridad = -1;
     raiz->listaProcesos.~ListaProcesos();
 
     // raiz = nullptr;
@@ -331,30 +334,69 @@ Arbol::~Arbol()
     hijoDerecho = nullptr;
 }
 
-int Arbol::tiempoMedioEjecucionNivel(int p)
+double Arbol::tiempoMedioEjecucionNivel(int p)
 {
     if (estáPrioridad(p))
     {
         if (raiz->prioridad == p)
         {
-            int tmedio = raiz->listaProcesos.tiempoMedioEjecucionLista();
-            cout << "el tiempo medio de p es: " << tmedio << endl;
+            double tmedio = raiz->listaProcesos.tiempoMedioEjecucionLista();
+            cout << "El tiempo medio del nivel " << p << " es: " << tmedio << endl;
             return tmedio;
         }
         else
         {
             if (hijoIzquierdo != NULL && p <= raiz->prioridad)
             {
-                hijoIzquierdo->tiempoMedioEjecucionNivel(p);
+                return hijoIzquierdo->tiempoMedioEjecucionNivel(p);
             }
             else if (hijoDerecho != NULL && p > raiz->prioridad)
             {
-                hijoDerecho->tiempoMedioEjecucionNivel(p);
+                return hijoDerecho->tiempoMedioEjecucionNivel(p);
             }
         }
     }
-    else
-    {
-        return -1;
-    }
+    
+    cout << "El nivel de prioridad dado no existe-" << endl;
+    return -1;
 }
+
+
+double Arbol::tiempoMedioEstancia(){
+    double sumaTiempos = 0;
+    int cuentaProcesos = 0;
+    double resultado=0;
+
+    // Llamada auxiliar para recorrer el árbol
+    tiempoMedioEstanciaAux(sumaTiempos, cuentaProcesos);
+    cout <<sumaTiempos<<endl;
+    cout<<cuentaProcesos<<endl;
+    // Calcular la media final
+    if (cuentaProcesos > 0) {
+        resultado=(double) sumaTiempos/cuentaProcesos;
+        cout << "La media total es: " <<resultado<< endl;
+    } else {
+        cout << "El árbol está vacío." << endl;
+    }
+    return resultado;
+}
+
+double Arbol::tiempoMedioEstanciaAux(double& sumaTiempos, int& cuentaProcesos) {
+    // Sumar tiempo de ejecución del nivel actual
+    sumaTiempos += raiz->listaProcesos.sumaTiemposEstancia();
+    cuentaProcesos+= raiz->listaProcesos.len();
+    //cout << "Nodo prioridad " << raiz->prioridad << endl;
+    //cout << "Lista de procesos: " << endl;
+    //raiz->listaProcesos.mostrarListaProcesos();
+    // Recursión para hijos izquierdo y derecho
+    if (hijoIzquierdo != NULL) {
+        cout << "----------Nodos izquierdos----------" << endl;
+        hijoIzquierdo->tiempoMedioEstanciaAux(sumaTiempos, cuentaProcesos);
+    }
+    if (hijoDerecho != NULL) {
+        cout << "----------Nodos derechos----------" << endl;
+        hijoDerecho->tiempoMedioEstanciaAux(sumaTiempos, cuentaProcesos);
+    }
+    return sumaTiempos;
+}
+

@@ -117,26 +117,39 @@ void ListaProcesos::mostrarListaProcesos(){
 int ListaProcesos::len(){
     ListaProcesos listaProcesosCopia = copiarLista();
     int cuenta = 0;
-    while(!esVacia()){
+   /* while(!esVacia()){
         cuenta+=1;
         eliminarInicio();
-    }
+    }*/
     while(!listaProcesosCopia.esVacia()){
-        añadirPorDerecha(listaProcesosCopia.inicio());
+        //añadirPorDerecha(listaProcesosCopia.inicio());
+        cuenta++;
         listaProcesosCopia.eliminarInicio();
     }
     return cuenta;
 }
 
-int ListaProcesos::tiempoMedioEjecucionLista(){
+double ListaProcesos::tiempoMedioEjecucionLista(){
     int suma=0;
-    int media=0;
+    double media=0;
     ListaProcesos aux = copiarLista();
         while(!aux.esVacia()){
             //cout<<aux.primero->proceso.toString()<<endl;
-            suma+=aux.inicio().calcularTiempoMedio();
+            suma+=aux.inicio().calcularTiempoEstancia();
             aux.eliminarInicio();
         }
-    media=suma/len();
+    media=(double)suma/len();
     return media;
 }
+
+int ListaProcesos::sumaTiemposEstancia(){
+    int suma=0;
+    double media=0;
+    ListaProcesos aux = copiarLista();
+        while(!aux.esVacia()){
+            //cout<<aux.primero->proceso.toString()<<endl;
+            suma+=aux.inicio().calcularTiempoEstancia();
+            aux.eliminarInicio();
+        }
+    return suma; 
+} 

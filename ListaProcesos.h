@@ -22,7 +22,8 @@ class ListaProcesos{
         void mostrarListaProcesos();
         int len();
 
-        int tiempoMedioEjecucionLista();
+        double tiempoMedioEjecucionLista();
+        int sumaTiemposEstancia();
 
 };
 

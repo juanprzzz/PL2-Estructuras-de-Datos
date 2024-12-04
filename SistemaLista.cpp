@@ -230,6 +230,14 @@ void SistemaLista::acabarProcesos()
     cout << "La suma de los tiempos de llegada de todos los procesos es: " << tiempoLlegada << endl;
     cout << "La suma de los tiempos de finalización de todos los procesos es: " << tiempoFinalizacion << endl;
     cout << "\n El tiempo medio de estancia es: " << tiempoMedio << endl;
+    cout << "\nEL ARBOL ES: " << endl;
+    abb.mostrarArbol();
+    cout << "\nT.medio ejecucion:" << endl;
+    //abb.tiempoMedioEjecucionNivel(5);
+    abb.tiempoMedioEstancia();
+    cout << "\n//////////////////////////////////////////////////////// " << endl;
+    abb.mayorNumeroProcesos();
+    abb.menorNumeroProcesos();
 }
 bool SistemaLista::nucleosVacios()
 {

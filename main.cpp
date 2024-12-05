@@ -39,9 +39,6 @@ prueba.insertarProceso(p6);
 prueba.insertarProceso(p6);
 prueba.insertarProceso(p6);
 
- 
-
-
 //prueba.mostrarArbol();
 
 //prueba.mostrarPrioridadesEjecutadas();
@@ -49,128 +46,21 @@ prueba.mayorNumeroProcesos();
 prueba.menorNumeroProcesos();
 */
 
+ int PID =-1, inicioProceso=-1,  tiempoVida=-1,  ppid=-1, prioridad=-1, p=0;
 
+    SistemaLista sl;
 
-
-SistemaLista sl;
-Sistema sistemaPrincipal;
-
-
-bool exit=false;
-
-while(!exit){
-bool salir=false;
-int menu;
-cout << "|--------------|      |----------------|\n";
-cout << "|   COLA DE    |      |      CPU       |\n";
-cout << "|   PROCESOS   |----->|   PROCESANDO   |\n";
-cout << "|--------------|      |----------------|\n\n";
-cout<<"\t|------------------------|"<<endl;
-cout<<"\t|                        |"<<endl;
-cout<<"\t|PLANIFICADOR DE PROCESOS|"<<endl;
-cout<<"\t|                        |"<<endl;
-cout<<"\t|-1 -> Salir del programa|"<<endl;
-cout<<"\t|                        |"<<endl;
-cout<<"\t|1 -> Primera parte      |"<<endl;
-cout<<"\t|                        |"<<endl;
-cout<<"\t|2 -> Segunda parte      |"<<endl;
-cout<<"\t|                        |"<<endl;
-cout<<"\t|------------------------|"<<endl;
-cout<<"\nIntroduce una opción: ";
-cin >> menu;
-if (menu==-1){exit=true;}
-else if (menu==1){
-    
-    while(!salir){
-    int opcion;
-    cout << "\nQué opción quieres?:\n|---------------------------------------------------------------------------------------------------------------------------------------------------------|\n|-1 -> Salir\t\t\t1 -> Crear pila de procesos del sistema\t\t2 -> Mostrar pila \t3 -> Borrar pila                                  |\n|                                                                                                                                                         |\n| 4 -> Mostrar cola espera\t5 -> Mostrar procesos en nucleos\t\t6 -> Pasar N minutos\t7 -> Acabar todos los procesos y/o t.medio proc.  |\n|---------------------------------------------------------------------------------------------------------------------------------------------------------|\n\nIntroduce una opción: ";
-    cin >> opcion;
-    cout << opcion<<endl;
-
-    switch (opcion)
-    {
-    case -1:
-        salir=true;
-        break;
-
-    case 1: //crear pila de procesos
-        if(sistemaPrincipal.pilaVacia()){
-            cout << "Creando pila..."<<endl;
-            sistemaPrincipal.apilarSistema(p1);
-            sistemaPrincipal.apilarSistema(p2);
-            sistemaPrincipal.apilarSistema(p3);
-            sistemaPrincipal.apilarSistema(p4);
-            sistemaPrincipal.apilarSistema(p5);
-            sistemaPrincipal.apilarSistema(p6);
-            sistemaPrincipal.apilarSistema(p7);
-            sistemaPrincipal.apilarSistema(p8);
-            sistemaPrincipal.apilarSistema(p9);
-            sistemaPrincipal.apilarSistema(p10);
-        }
-        else{
-            cout<<"¡Ya tienes una pila con procesos!"<<endl;
-        }
-        break;
-
-    case 2: //mostrar la pila de procesos
-        sistemaPrincipal.mostrarPilaProcesos();
-        break;
-
-    case 3: //borrar la pila de procesos
-        cout << "Borrando pila..."<<endl;
-        sistemaPrincipal.borrarPila();
-        break;
-
-    case 4: //mostrar la cola de prioridades
-        sistemaPrincipal.mostrarColaPrioridad();
-        break;
-
-    case 5: //mostrar los procesos activos en los nucleos
-        sistemaPrincipal.mostrarProcesosNucleo();
-        break;
-
-    case 6://Pasa n minutos en el sistema  
-        if(sistemaPrincipal.pilaVacia() && sistemaPrincipal.colaVacia() && sistemaPrincipal.nucleosVacios()){
-            cout<<"No hay procesos que ejecutar"<<endl;
-        }
-        else{
-            int minutos;
-            cout << "Cuantos minutos quieres que pasen: ";
-            cin >> minutos;
-            if (minutos>0){
-                sistemaPrincipal.pasarTiempo(minutos);
-            }
-            else{
-                cout << "Por favor, introduzca un número mayor que 0 "<<endl;
-            }
-        } 
-        
-        break;
-
-    case 7:  //Pasa todo el tiempo hasta que acaben todos los procesos
-        if(sistemaPrincipal.pilaVacia() && sistemaPrincipal.colaVacia() && sistemaPrincipal.nucleosVacios()){
-            cout<<"No hay procesos que ejecutar"<<endl;
-        }
-        else{
-            sistemaPrincipal.acabarProcesos();
-        }   
-        
-        break;
-
-    default:
-        cout << "Opción no válida "<<endl;
-        break;
-    }
-}
-
-}
-
-
-else if (menu==2) {
+    bool salir=false;
     while(!salir){
         int opcion;
-        cout << "\nQué opción quieres?:\n|---------------------------------------------------------------------------------------------------------------------------------------------------------|\n|-1 -> Volver\t\t\t1 -> Crear pila de procesos del sistema\t\t2 -> Mostrar pila \t3 -> Borrar pila                                  |\n|                                                                                                                                                         |\n| 4 -> Consultar ocupación  \t5 -> Mostrar procesos en nucleos\t\t6 -> Pasar N minutos\t7 -> Acabar todos los procesos y/o t.medio proc.  |\n|---------------------------------------------------------------------------------------------------------------------------------------------------------|\n\nIntroduce una opción: ";
-        cin >> opcion;
+cout << "\n¿Qué opción quieres?:\n";
+cout << "|---------------------------------------------------------------------------------------------------------------------------------------------------------|\n";
+cout << "| -1 -> Volver       1 -> Crear pila       2 -> Mostrar pila       3 -> Borrar pila     4 -> Ocupación núcleos       5 -> Procesos en núcleos          |\n";
+cout << "|  6 -> Pasar N min  7 -> Acabar procesos  8 -> Añadir proceso    9 -> Ver ABB        10 -> Proc. por prioridad       11 -> Prioridades ejecutadas       |\n";
+cout << "| 12 -> Max/Min procesos en abb            13 -> T. promedio para 1 nivel              14 -> T. promedio para cada nivel   15 -> Tiempo estancia total    |\n";
+cout << "|---------------------------------------------------------------------------------------------------------------------------------------------------------|\n";
+cout << "\nIntroduce una opción: ";
+         cin >> opcion;
         cout << opcion<<endl;
 
         switch (opcion){
@@ -241,18 +131,64 @@ else if (menu==2) {
                         sl.acabarProcesos();
                 }   
         
-                    break;
+                break;
+            case 8: //añadir al abb a mano
+            //int PID, inicioProceso,  tiempoVida,  prioridad,  ppid;
+                cout <<"Introduzca a continuación los datos del proceso a añadir (válidos porfa)"<<endl;;
+                cout <<"introduce PID: ";
+                cin >> PID;
+                cout <<"introduce tiempo inicio proceso: ";
+                cin >> inicioProceso;
+                cout <<"introduce tiempo de vida: ";
+                cin >> tiempoVida;
+                cout <<"introduce PPID: ";
+                cin >> ppid;
+                cout <<"introduce prioridad: ";
+                cin >> prioridad;
+
+                sl.añadirProcesoAbbTeclado(PID,inicioProceso,tiempoVida,ppid,prioridad);
+            break;
+
+            case 9: //ver el abb
+                sl.verABB();
+            break;
+
+            case 10:// Mostrar  los  procesos  con  la  prioridad  dada
+                cout <<"Introduce el nivel de prioridad que quieras ver en el ABB: ";
+                cin >> p;
+                sl.verPrioridadDada(p);
+            break;
+
+            case 11://Mostrar  todos  los  niveles  de  prioridad  que  han  tenido  al  menos  un  proceso  ejecutado, en orden numérico
+                sl.verPrioridadesEjecutadas();
+            break;
+
+            case 12: //Calcular y mostrar el nivel de prioridad con el mayor número de procesos y el de menor  número
+                sl.mayorNumeroProcesos();
+                cout<<"\n\n"<<endl;
+                sl.menorNumeroProcesos();
+            break;
+
+            case 13: // tiempo  promedio  de  ejecución  de  los  procesos  con  una prioridad específica
+                cout <<"Introduce el nivel de prioridad del que quieras ver el tiempo promedio de ejecucion: ";
+                cin >> p;
+                sl.tiempoMedioEjecucionNivel(p);
+            break;
+
+            case 14: //tiempo promedio de ejecución de los procesos en cada nivel de  prioridad
+                sl.mostrarTiemposMediosNiveles(); //muestra nan si vacio
+            break;
+
+            case 15: //muestra el t.medio de estancia
+                sl.tiempoMedioEstancia(); 
+            break;
 
             default:
                     cout << "Opción no válida "<<endl;
                     break;
             }
         }
-    }
-else{
-    cout << "Opción no válida "<<endl;
-}
-}
+
 
 
 return 0;

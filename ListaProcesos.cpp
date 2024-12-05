@@ -132,13 +132,18 @@ int ListaProcesos::len(){
 double ListaProcesos::tiempoMedioEjecucionLista(){
     int suma=0;
     double media=0;
-    ListaProcesos aux = copiarLista();
+    int longitud=0;
+
+    longitud=len();
+    if (longitud>0){
+        ListaProcesos aux = copiarLista();
         while(!aux.esVacia()){
             //cout<<aux.primero->proceso.toString()<<endl;
             suma+=aux.inicio().calcularTiempoEstancia();
             aux.eliminarInicio();
         }
-    media=(double)suma/len();
+        media=(double)suma/longitud;
+    }
     return media;
 }
 

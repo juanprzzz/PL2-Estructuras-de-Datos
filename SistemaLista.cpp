@@ -53,6 +53,43 @@ void SistemaLista::mostrarOcupacion(){
     lista.menosOcupado();
 }
 
+void SistemaLista::añadirProcesoAbbTeclado(int PID, int inicioProceso, int tiempoVida, int ppid, int prioridad){
+     if  (PID>0  && inicioProceso>=0 && tiempoVida>0 && prioridad>=0 && prioridad<=9 && ppid>=-1){
+    Proceso p=Proceso(PID,inicioProceso,tiempoVida,prioridad,ppid);
+    abb.insertarProceso(p);
+    cout<<"Proceso insertado"<<endl;
+     }else{    
+        cout<<"Datos no válidos"<<endl;}
+    //cout<<"El árbol actualizado es:"<<endl;
+    //abb.mostrarArbol();
+}
+
+void SistemaLista::verABB(){
+    abb.mostrarArbol();
+}
+void SistemaLista::verPrioridadDada(int p){
+    abb.mostrarPrioridadDada(p);
+}
+
+void SistemaLista::verPrioridadesEjecutadas(){
+    abb.mostrarPrioridadesEjecutadas();
+}
+void SistemaLista::mayorNumeroProcesos(){
+    abb.mayorNumeroProcesos();
+}
+void SistemaLista::menorNumeroProcesos(){
+    abb.menorNumeroProcesos();
+}
+void SistemaLista::mostrarTiemposMediosNiveles(){
+    abb.mostrarTiemposMediosNiveles();
+}
+void SistemaLista::tiempoMedioEjecucionNivel(int p){
+    abb.tiempoMedioEjecucionNivel(p);
+}
+void SistemaLista::tiempoMedioEstancia(){
+    abb.tiempoMedioEstancia();
+}
+
 void SistemaLista::apilarSistema(Proceso p)
 {
     if (p.inicioProceso < tiempoTranscurrido)
@@ -261,3 +298,5 @@ bool SistemaLista::nucleosVacios()
     }
     return todosVacios;
 }
+
+

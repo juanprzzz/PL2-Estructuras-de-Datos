@@ -48,7 +48,11 @@ string Proceso::toString(){
 }
 
 int Proceso::calcularTiempoEstancia(){
+    tiempoEstancia=0;
+    if(tiempoFin>=0 && tiempoLlegada>=0 ){
     tiempoEstancia=tiempoFin-tiempoLlegada;
+    }
     cout<<"tfin: "<<tiempoFin<<", tllegada: "<< tiempoLlegada<<", testancia: "<< tiempoEstancia<<endl;
+    
     return tiempoEstancia;
 }

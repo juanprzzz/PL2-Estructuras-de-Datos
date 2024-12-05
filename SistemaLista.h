@@ -25,7 +25,7 @@ class SistemaLista{
         
         void mostrarProcesosNucleo();
         void pasarTiempo(int N);
-        bool asignarSiguienteProcesoDesdeCola(int nucleoLibre);
+        //bool asignarSiguienteProcesoDesdeCola(int nucleoLibre);
         void añadirNucleo(Nucleo n);
         void acabarProcesos();
         void procesoComienzo();
@@ -35,7 +35,17 @@ class SistemaLista{
         bool pilaVacia();
         bool listaVacia();
         bool nucleosVacios();
-
         void mostrarOcupacion();
+
+        void añadirProcesoAbbTeclado(int PID, int inicioProceso, int tiempoVida, int ppid, int prioridad);
+        void verABB();
+        void verPrioridadDada(int p);
+        void verPrioridadesEjecutadas();
+        void mayorNumeroProcesos();
+        void menorNumeroProcesos();
+
+        void mostrarTiemposMediosNiveles(); //muestra el tiempo medio de todos los niveles de prioridad del abb en preorden
+        void tiempoMedioEjecucionNivel(int p); //muestra el tiempo medio de ejecución de un nivel dado del abb
+        void tiempoMedioEstancia(); //tiempo medio de estancia total en ese momento
 }; 
 #endif

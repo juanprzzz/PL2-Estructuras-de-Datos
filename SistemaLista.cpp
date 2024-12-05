@@ -123,6 +123,7 @@ void SistemaLista::pasarTiempo(int N)
                 cout << "\nHa finalizado el siguiente proceso al final del minuto " << tiempoTranscurrido - 1 << " del sistema: " << aux.primero->nucleo.mostrarProcesoEjecucion() << endl;
                 tiempoFinalizacion += tiempoTranscurrido; // como ha acabado un proceso, se suma el tiempo actual al tiempo de finalización
                 aux.primero->nucleo.procesoEjecucion.tiempoFin=tiempoTranscurrido;
+                ///////////////////////////////////explicar lo de abajo en memoria
                 Proceso pact=aux.primero->nucleo.terminarProceso();    // Además, como ahora el núcleo está vacío, se sustituye el proceso finalizado por uno vacío con todos los valores a -1
                 //pact.tiempoFin=tiempoTranscurrido;
                 abb.insertarProceso(pact); //se podria hacer directamente abb.insertarProceso(aux.primero->nucleo.procesoEjecucion

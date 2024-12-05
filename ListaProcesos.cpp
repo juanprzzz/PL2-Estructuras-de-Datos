@@ -149,7 +149,6 @@ double ListaProcesos::tiempoMedioEjecucionLista(){
 
 int ListaProcesos::sumaTiemposEstancia(){
     int suma=0;
-    double media=0;
     ListaProcesos aux = copiarLista();
         while(!aux.esVacia()){
             //cout<<aux.primero->proceso.toString()<<endl;

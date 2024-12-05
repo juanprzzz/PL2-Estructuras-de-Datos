@@ -95,7 +95,7 @@ void Arbol::insertarProceso(Proceso p)
     }
 }
 
-bool Arbol::estáPrioridad(int prioridad)
+bool Arbol::estáPrioridad(int prioridad) //////optimizar busqueda
 {
     if (raiz->prioridad == prioridad)
     {
@@ -165,13 +165,13 @@ void Arbol::mostrarArbol() // falta mostrar tiempo vivo en el SO
         }
     //}
 }
-
+/*
 void Arbol::mostrarPrioridadesEjecutadas() //// REVISAR IMPRIME DOS VECES EL 4
 {
     /*Mostrar  todos  los  niveles  de  prioridad  que  han  tenido  al  menos  un  proceso 
 ejecutado, en orden numérico: Lista todos los niveles de prioridad en los que ha habido 
 al menos un proceso atendido, ordenados de menor a mayor prioridad*/
-    if (hijoIzquierdo == NULL && hijoDerecho == NULL) // Si los dos son nulos es el valor más pequeño posible
+ /*   if (hijoIzquierdo == NULL && hijoDerecho == NULL) // Si los dos son nulos es el valor más pequeño posible
     {
         cout << "La prioridad " << raiz->prioridad << " ha ejecutado los siguientes procesos: " << endl;
         raiz->listaProcesos.mostrarListaProcesos();
@@ -195,7 +195,23 @@ al menos un proceso atendido, ordenados de menor a mayor prioridad*/
             hijoDerecho->mostrarPrioridadesEjecutadas();
         }
     }
+}*/
+
+void Arbol::mostrarPrioridadesEjecutadas() {
+    // Recorrido inorden para garantizar el orden numérico de las prioridades
+    if (hijoIzquierdo != NULL) {
+        hijoIzquierdo->mostrarPrioridadesEjecutadas();
+    }
+
+    // Mostrar la prioridad actual, ya que todos los procesos han sido ejecutados
+    cout << "La prioridad " << raiz->prioridad << " ha ejecutado los siguientes procesos: " << endl;
+    raiz->listaProcesos.mostrarListaProcesos();
+
+    if (hijoDerecho != NULL) {
+        hijoDerecho->mostrarPrioridadesEjecutadas();
+    }
 }
+
 void Arbol::mayorNumeroProcesosAux(Arbol *&mayorProcesos) // Para que se pase por referencia, si no, se pasa por valor
 {
     if (mayorProcesos->raiz->listaProcesos.len() == raiz->listaProcesos.len() && raiz->prioridad != 4) // Si tienen la misma cantidad de procesos hay que mostrarlos (inicialmente el 4 tendrá los mismos procesos que mayorProcesos, y como ya está en el arbol, se omite)

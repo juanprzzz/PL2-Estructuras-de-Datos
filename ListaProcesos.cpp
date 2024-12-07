@@ -117,12 +117,7 @@ void ListaProcesos::mostrarListaProcesos(){
 int ListaProcesos::len(){
     ListaProcesos listaProcesosCopia = copiarLista();
     int cuenta = 0;
-   /* while(!esVacia()){
-        cuenta+=1;
-        eliminarInicio();
-    }*/
     while(!listaProcesosCopia.esVacia()){
-        //añadirPorDerecha(listaProcesosCopia.inicio());
         cuenta++;
         listaProcesosCopia.eliminarInicio();
     }
@@ -138,7 +133,6 @@ double ListaProcesos::tiempoMedioEjecucionLista(){
     if (longitud>0){
         ListaProcesos aux = copiarLista();
         while(!aux.esVacia()){
-            //cout<<aux.primero->proceso.toString()<<endl;
             suma+=aux.inicio().calcularTiempoEstancia();
             aux.eliminarInicio();
         }
@@ -151,7 +145,6 @@ int ListaProcesos::sumaTiemposEstancia(){
     int suma=0;
     ListaProcesos aux = copiarLista();
         while(!aux.esVacia()){
-            //cout<<aux.primero->proceso.toString()<<endl;
             suma+=aux.inicio().calcularTiempoEstancia();
             aux.eliminarInicio();
         }

@@ -176,7 +176,7 @@ cout << "\nIntroduce una opción: ";
             break;
 
             case 14: //tiempo promedio de ejecución de los procesos en cada nivel de  prioridad
-                sl.mostrarTiemposMediosNiveles(); //muestra nan si vacio
+                sl.mostrarTiemposMediosNiveles(); 
             break;
 
             case 15: //muestra el t.medio de estancia

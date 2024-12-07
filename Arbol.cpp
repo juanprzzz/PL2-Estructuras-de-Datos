@@ -36,13 +36,7 @@ bool Arbol::esVacio()
 
 void Arbol::insertarProcesoEnArbol(Proceso p) // si no está ese nivel de prioridad
 {
-    /*
-    if (raiz->prioridad == -1) { int prioridad = p.prioridad;
-        raiz->listaProcesos.añadirPorDerecha(p);
-        raiz->prioridad = prioridad;
-    }*/
     if (p.prioridad <= raiz->prioridad) // si la prioridad del proceso es menor o igual que la raiz, busca en la izquierda
-    // raiz->prioridad != -1 &&
     {
         if (hijoIzquierdo == NULL) // si el hijo izquierdo es NULL, crea nuevo nodo con lista nueva y la prioridad del proceso a añadir
         {
@@ -140,16 +134,8 @@ void Arbol::mostrarPrioridadDada(int p)
         cout << "La prioridad no existe en el árbol" << endl;
     }
 }
-void Arbol::mostrarArbol() // falta mostrar tiempo vivo en el SO
-{                          // PRIMERO MUESTRA TODO EL LADO IZQUIERDO POSIBLE, LUEGO LADO DERECHO
-    /*if (hijoIzquierdo == NULL && hijoDerecho == NULL)
-    {
-        cout << "Nodo prioridad " << raiz->prioridad << endl;
-        cout << "Lista de procesos: " << endl;
-        raiz->listaProcesos.mostrarListaProcesos();
-    }
-    else
-    {*/
+void Arbol::mostrarArbol()
+{                          
         cout << "NODO PRIORIDAD " << raiz->prioridad << endl;
         cout << "Lista de procesos: " << endl;
         raiz->listaProcesos.mostrarListaProcesos();
@@ -163,7 +149,6 @@ void Arbol::mostrarArbol() // falta mostrar tiempo vivo en el SO
             cout << "----------Nodos derechos----------" << endl;
             hijoDerecho->mostrarArbol();
         }
-    //}
 }
 /*
 void Arbol::mostrarPrioridadesEjecutadas() //// REVISAR IMPRIME DOS VECES EL 4
@@ -339,12 +324,8 @@ Arbol::~Arbol()
     {
         hijoIzquierdo->~Arbol();
     }
-    // destruirArbol(hijoDerecho);
-    // destruirArbol(hijoIzquierdo);
     raiz->prioridad = -1;
     raiz->listaProcesos.~ListaProcesos();
-
-    // raiz = nullptr;
 
     hijoIzquierdo = nullptr;
     hijoDerecho = nullptr;
@@ -401,9 +382,6 @@ double Arbol::tiempoMedioEstanciaAux(double& sumaTiempos, int& cuentaProcesos) {
     // Sumar tiempo de ejecución del nivel actual
     sumaTiempos += raiz->listaProcesos.sumaTiemposEstancia();
     cuentaProcesos+= raiz->listaProcesos.len();
-    //cout << "Nodo prioridad " << raiz->prioridad << endl;
-    //cout << "Lista de procesos: " << endl;
-    //raiz->listaProcesos.mostrarListaProcesos();
     // Recursión para hijos izquierdo y derecho
     if (hijoIzquierdo != NULL) {
         cout << "----------Nodos izquierdos----------" << endl;

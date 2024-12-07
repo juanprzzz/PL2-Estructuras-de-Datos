@@ -60,8 +60,6 @@ void SistemaLista::añadirProcesoAbbTeclado(int PID, int inicioProceso, int tiem
     cout<<"Proceso insertado"<<endl;
      }else{    
         cout<<"Datos no válidos"<<endl;}
-    //cout<<"El árbol actualizado es:"<<endl;
-    //abb.mostrarArbol();
 }
 
 void SistemaLista::verABB(){
@@ -123,10 +121,8 @@ void SistemaLista::pasarTiempo(int N)
                 cout << "\nHa finalizado el siguiente proceso al final del minuto " << tiempoTranscurrido - 1 << " del sistema: " << aux.primero->nucleo.mostrarProcesoEjecucion() << endl;
                 tiempoFinalizacion += tiempoTranscurrido; // como ha acabado un proceso, se suma el tiempo actual al tiempo de finalización
                 aux.primero->nucleo.procesoEjecucion.tiempoFin=tiempoTranscurrido;
-                ///////////////////////////////////explicar lo de abajo en memoria
                 Proceso pact=aux.primero->nucleo.terminarProceso();    // Además, como ahora el núcleo está vacío, se sustituye el proceso finalizado por uno vacío con todos los valores a -1
-                //pact.tiempoFin=tiempoTranscurrido;
-                abb.insertarProceso(pact); //se podria hacer directamente abb.insertarProceso(aux.primero->nucleo.procesoEjecucion
+                abb.insertarProceso(pact);
             }else{
                 aux.primero->nucleo.procesoEjecucion.tiempoVida--; 
             }
@@ -157,7 +153,6 @@ void SistemaLista::pasarTiempo(int N)
  */
 void SistemaLista::procesoComienzo()
 {
-
     // primero creo una cola auxiliar para guardar todos los elementos que inician en este minuto
     Cola colaNuevos;
     while (tiempoTranscurrido == pilaProcesos.mostrar().inicioProceso)
@@ -206,7 +201,7 @@ void SistemaLista::procesoComienzo()
                 else{
                     ejecutar = aux->nucleo.PrimeroCola();
                     aux->nucleo.desencolarProceso(); }
-                //ejecutar.nucleo = aux->nucleo.ID;
+
                 aux->nucleo.ejecutarProceso(ejecutar);
                 cout << "\nSe ha introducido al inicio del minuto " << tiempoTranscurrido << " del sistema, el Proceso con PID " << aux->nucleo.procesoEjecucion.PID << endl;
                 
@@ -271,12 +266,8 @@ void SistemaLista::acabarProcesos()
     cout << "\nEL ARBOL ES: " << endl;
     abb.mostrarArbol();
     cout << "\n//////////////////////////////////////////////////////// " << endl;
-    cout << "\nT.medio ejecucion:" << endl;
-    //abb.tiempoMedioEjecucionNivel(5);
-    abb.mostrarTiemposMediosNiveles();
+    cout << "\nT.medio estancia (con árboles):" << endl;
     abb.tiempoMedioEstancia();
-    //abb.mayorNumeroProcesos();
-   // abb.menorNumeroProcesos();
 }
 bool SistemaLista::nucleosVacios()
 {

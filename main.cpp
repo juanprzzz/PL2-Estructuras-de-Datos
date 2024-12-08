@@ -30,8 +30,8 @@ int main(){
         int opcion;
 cout << "\n¿Qué opción quieres?:\n";
 cout << "|---------------------------------------------------------------------------------------------------------------------------------------------------------|\n";
-cout << "| -1 -> Volver       1 -> Crear pila       2 -> Mostrar pila       3 -> Borrar pila     4 -> Ocupación núcleos       5 -> Procesos en núcleos          |\n";
-cout << "|  6 -> Pasar N min  7 -> Acabar procesos  8 -> Añadir proceso    9 -> Ver ABB        10 -> Proc. por prioridad       11 -> Prioridades ejecutadas       |\n";
+cout << "| -1 -> Volver       1 -> Crear pila       2 -> Mostrar pila       3 -> Borrar pila     4 -> Ocupación núcleos       5 -> Procesos en núcleos             |\n";
+cout << "|  6 -> Pasar N min  7 -> Acabar procesos  8 -> Añadir proceso    9 -> Ver ABB        10 -> Proc. por prioridad       11 -> Prioridades ejecutadas        |\n";
 cout << "| 12 -> Max/Min procesos en abb            13 -> T. promedio para 1 nivel              14 -> T. promedio para cada nivel   15 -> Tiempo estancia total    |\n";
 cout << "|---------------------------------------------------------------------------------------------------------------------------------------------------------|\n";
 cout << "\nIntroduce una opción: ";

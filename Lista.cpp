@@ -251,7 +251,7 @@ else
             Nucleo nucleoAux;
             aux = primero;
             nucleoAux = primero->nucleo;
-            resultado.añadirDerecha(nucleoAux);int contador=1;
+            resultado.añadirDerecha(nucleoAux);
             int len1=0; 
             int len2=0;
             int procesovacio1=0;
@@ -306,7 +306,7 @@ else
             Nucleo nucleoAux;
             aux = primero;
             nucleoAux = primero->nucleo;
-            resultado.añadirDerecha(nucleoAux);int posic=1;
+            resultado.añadirDerecha(nucleoAux);
             int len1=0; 
             int len2=0;
             int procesovacio1=0;

@@ -20,31 +20,16 @@ int main(){
     Proceso p8 = Proceso(8,3,2,0);
     Proceso p9 = Proceso(9,1,8,5);
     Proceso p10 = Proceso(10,2,4,4);
-/*
-Arbol prueba;
-
-//cout<<prueba.esVacio() <<endl;
-prueba.insertarProceso(p4);
-prueba.insertarProceso(p3);
-prueba.insertarProceso(p5);
-prueba.insertarProceso(p8);
-prueba.insertarProceso(p9);
-prueba.insertarProceso(p3);
-prueba.insertarProceso(p7);
-prueba.insertarProceso(p10);
-prueba.insertarProceso(p1);
-prueba.insertarProceso(p3);
-prueba.insertarProceso(p6);
-prueba.insertarProceso(p6);
-prueba.insertarProceso(p6);
-prueba.insertarProceso(p6);
-
-//prueba.mostrarArbol();
-
-//prueba.mostrarPrioridadesEjecutadas();
-prueba.mayorNumeroProcesos();
-prueba.menorNumeroProcesos();
-*/
+    /*
+    Arbol p;
+    p.insertarProceso(p1);
+    p.insertarProceso(p2);
+    p.insertarProceso(p3);
+    p.insertarProceso(p4);
+    p.insertarProceso(p5);
+    p.insertarProceso(p7);
+    p.mostrarArbol();
+    */
 
  int PID =-1, inicioProceso=-1,  tiempoVida=-1,  ppid=-1, prioridad=-1, p=0;
 
@@ -111,7 +96,7 @@ cout << "\nIntroduce una opción: ";
                 }
                 else{
                     int minutos;
-                    cout << "Cuantos minutos quieres que pasen: ";
+                    cout << "¿Cuántos minutos quieres que pasen: ?";
                     cin >> minutos;
                     if (minutos>0){
                         sl.pasarTiempo(minutos);
@@ -170,7 +155,7 @@ cout << "\nIntroduce una opción: ";
             break;
 
             case 13: // tiempo  promedio  de  ejecución  de  los  procesos  con  una prioridad específica
-                cout <<"Introduce el nivel de prioridad del que quieras ver el tiempo promedio de ejecucion: ";
+                cout <<"Introduce el nivel de prioridad del que quieras ver el tiempo promedio de ejecución: ";
                 cin >> p;
                 sl.tiempoMedioEjecucionNivel(p);
             break;
@@ -188,9 +173,6 @@ cout << "\nIntroduce una opción: ";
                     break;
             }
         }
-
-
-
 return 0;
 }
 

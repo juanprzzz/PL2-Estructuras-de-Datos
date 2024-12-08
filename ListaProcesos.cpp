@@ -54,7 +54,6 @@ Proceso ListaProcesos::fin(){
 void ListaProcesos::eliminarInicio(){
     if(!esVacia()){
         if(primero == ultimo){
-            //primero->siguiente = NULL; En principio no sería necesaria ya que primero->siguiente == ultimo
             primero = NULL;
             ultimo = NULL;
         }
@@ -138,6 +137,7 @@ double ListaProcesos::tiempoMedioEjecucionLista(){
         }
         media=(double)suma/longitud;
     }
+    cout<<"El tiempo promedio de ejecución es: "<<media<<endl;
     return media;
 }
 

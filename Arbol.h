@@ -16,7 +16,6 @@ public:
     Arbol();
     Arbol(int prioridad, ListaProcesos l);
     ~Arbol();
-    //void destruirArbol(Arbol *a);
     NodoArbol* verRaiz();
     Arbol* hijoIzqdo();
     Arbol* hijoDcho();
@@ -25,18 +24,12 @@ public:
     void insertarProceso(Proceso p);
     void mostrarArbol();
     bool estáPrioridad(int prioridad);
-
     void mostrarPrioridadDada(int p);
-
     void mostrarPrioridadesEjecutadas();
-
     void mayorNumeroProcesosAux(Arbol *&mayorProcesos);
     void mayorNumeroProcesos();
-
     void menorNumeroProcesosAux(Arbol *&menorProcesos);
     void menorNumeroProcesos();
-
-    //void menorNumeroprocesos();
     double tiempoMedioEjecucionNivel(int p);
     void mostrarTiemposMediosNiveles();
     double tiempoMedioEstancia();

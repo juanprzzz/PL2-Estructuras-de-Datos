@@ -20,16 +20,6 @@ int main(){
     Proceso p8 = Proceso(8,3,2,0);
     Proceso p9 = Proceso(9,1,8,5);
     Proceso p10 = Proceso(10,2,4,4);
-    /*
-    Arbol p;
-    p.insertarProceso(p1);
-    p.insertarProceso(p2);
-    p.insertarProceso(p3);
-    p.insertarProceso(p4);
-    p.insertarProceso(p5);
-    p.insertarProceso(p7);
-    p.mostrarArbol();
-    */
 
  int PID =-1, inicioProceso=-1,  tiempoVida=-1,  ppid=-1, prioridad=-1, p=0;
 
@@ -46,7 +36,7 @@ cout << "| 12 -> Max/Min procesos en abb            13 -> T. promedio para 1 niv
 cout << "|---------------------------------------------------------------------------------------------------------------------------------------------------------|\n";
 cout << "\nIntroduce una opción: ";
          cin >> opcion;
-        cout << opcion<<endl;
+       // cout << opcion<<endl;
 
         switch (opcion){
             case -1:
@@ -91,7 +81,7 @@ cout << "\nIntroduce una opción: ";
                 break;
 
             case 6://Pasa n minutos en el sistema  
-                if(sl.pilaVacia() && sl.listaVacia() && sl.nucleosVacios()){  //////////////////comprobar
+                if(sl.pilaVacia() && sl.listaVacia() && sl.nucleosVacios()){  
                     cout<<"No hay procesos que ejecutar"<<endl;
                 }
                 else{
@@ -118,7 +108,6 @@ cout << "\nIntroduce una opción: ";
         
                 break;
             case 8: //añadir al abb a mano
-            //int PID, inicioProceso,  tiempoVida,  prioridad,  ppid;
                 cout <<"Introduzca a continuación los datos del proceso a añadir (válidos porfa)"<<endl;;
                 cout <<"introduce PID: ";
                 cin >> PID;

@@ -137,7 +137,7 @@ double ListaProcesos::tiempoMedioEjecucionLista(){
         }
         media=(double)suma/longitud;
     }
-    cout<<"El tiempo promedio de ejecución es: "<<media<<endl;
+    cout<<"El tiempo promedio de estancia es: "<<media<<endl;
     return media;
 }
 

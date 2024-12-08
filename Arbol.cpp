@@ -203,14 +203,13 @@ void Arbol::mayorNumeroProcesosAux(Arbol *&mayorProcesos) // Para que se pase po
 
 void Arbol::mayorNumeroProcesos()
 {
-    // Arbol *mayorProcesos = new Arbol(raiz->prioridad, raiz->listaProcesos); No funcionaba usando esto
     Arbol *mayorProcesos = new Arbol();
     mayorProcesos->raiz->prioridad = raiz->prioridad;
     ListaProcesos copiaListaRaiz = raiz->listaProcesos.copiarLista();
     while (!copiaListaRaiz.esVacia())
     {
         mayorProcesos->raiz->listaProcesos.añadirPorDerecha(copiaListaRaiz.inicio()); // Insertamos en la raíz de mayorProcesos la lista de procesos de la prioridad raíz (será siempre 4)
-        // cambiar añadirderecha por mayorprocesos->insertarProceso(copiaProcesos.inicio()) ////////////////////////////////////////////
+        //mayorprocesos->insertarProceso(copiaProcesos.inicio())
         copiaListaRaiz.eliminarInicio();
     }
 
@@ -317,8 +316,8 @@ double Arbol::tiempoMedioEstancia()
 
     // Llamada auxiliar para recorrer el árbol
     tiempoMedioEstanciaAux(sumaTiempos, cuentaProcesos);
-    cout << sumaTiempos << endl;
-    cout << cuentaProcesos << endl;
+    cout << "La suma de los tiempos de los procesos es: "<<sumaTiempos << endl;
+    cout <<"Ctd de procesos: " <<cuentaProcesos << endl;
     // Calcular la media final
     if (cuentaProcesos > 0)
     {
@@ -354,7 +353,6 @@ double Arbol::tiempoMedioEstanciaAux(double &sumaTiempos, int &cuentaProcesos)
 void Arbol::mostrarTiemposMediosNiveles()
 {
     cout << "NODO PRIORIDAD " << raiz->prioridad << endl;
-    // double media = raiz->listaProcesos.tiempoMedioEjecucionLista();
     raiz->listaProcesos.tiempoMedioEjecucionLista();
 
     if (hijoIzquierdo != NULL)
